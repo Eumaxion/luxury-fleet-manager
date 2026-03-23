@@ -3,7 +3,7 @@
 
 ## Description
 
-This project was my final project at Tokyo School, and also my first “big” Python application.
+This project was my final project at Tokyo School, and also my first “complex” Python application.
 It’s a car and bike rental management system built using Tkinter for the graphical interface and SQLite for the database.
 
 The system allows managing vehicles, legalizations, and maintenance tasks, all through an intuitive interface.
@@ -12,7 +12,7 @@ It’s object-oriented (POO), with classes representing vehicles, clients, and i
 Although the project is finished and graded, I’m now revisiting it to improve the structure and readability, as I’ve gained more programming experience since its first version.
 ## Preview
 
-![App Preview](./recursos/preview.png)
+![App Preview](./src/preview.png)
 
 ## Features
 

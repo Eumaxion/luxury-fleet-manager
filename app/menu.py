@@ -4,11 +4,13 @@ import tkinter
 from tkinter import ttk
 from tkinter import *
 from datetime import *
+from database import Database
 
 '''################################################# CLASSE MENU ###################################################'''
 class Menu(Frame):
-    db_auto = 'database/ManagerLuxury.db'  # variavel para acessar o banco de dados da frota
+    #db_auto = 'database/ManagerLuxury.db'  # variavel para acessar o banco de dados da frota
     def __init__(self, master):
+        self.db = Database()
         super().__init__()
         self['bd'] = 2 #defininado o tamanho da borda
         self['relief'] = SOLID #definindo o tipo
@@ -98,7 +100,7 @@ class Menu(Frame):
 
        #---INSERINDO FUNÇÃO DE BOTÃO DE PESQUISA--#
         frame_pesquisar = Frame(veiculos_frame)
-        icone_pesquisa = tkinter.PhotoImage(file='recursos/magnifying_glass.png')
+        icone_pesquisa = tkinter.PhotoImage(file='src/magnifying_glass.png')
         self.buttom_pesquisar = Button(frame_pesquisar, cursor='hand2', text='Pesquisar\nveiculo', font="sylfaen 10 bold", image=icone_pesquisa,
                                        compound='left', background='#B0E0E6', command=self.pesquisar_veiculo)
         self.buttom_pesquisar.image = icone_pesquisa
@@ -329,7 +331,7 @@ class Menu(Frame):
         #JANELA PARA FAZER A PESQUISA DOS VEICULOS
         self.janela_pesquisar = Toplevel()
         self.janela_pesquisar.title("Pesquisar Veiculo") #titulo
-        icon_lupa2 = PhotoImage(file="recursos/lupa-1.png")
+        icon_lupa2 = PhotoImage(file="src/lupa-1.png")
         self.janela_pesquisar.iconphoto(False, icon_lupa2) #icone
         self.janela_pesquisar.resizable(False,False) #impedir que a janela seja maximizada
         self.janela_pesquisar.geometry("600x150+500+200") #tamanho e local onde a janela abrirá
@@ -565,7 +567,7 @@ class Menu(Frame):
         self.btt_enviar_manutencao = Button(self.frame_att_manutencao, cursor='hand2', bd=5, relief="raised", bg='#B0E0E6',
                                 text="Confirmar", font="sylfaen 12 bold", command=lambda: self.atualizar_manutencao
             (self.ent_id_veic.get(), self.ent_dias_manut.get(), self.ent_data_inicio.get(), self.ent_detalhes.get()))
-        icone_pesquisa = tkinter.PhotoImage(file='recursos/magnifying_glass.png')
+        icone_pesquisa = tkinter.PhotoImage(file='src/magnifying_glass.png')
         self.buttom_pesquisar_manutencao = Button(self.frame_att_manutencao, cursor='hand2', text='Pesquisar\nveiculo', font="sylfaen 10 bold", image=icone_pesquisa,
                                        compound='left', background='#B0E0E6', command=self.pesquisar_manutencao)
         self.buttom_pesquisar_manutencao.image = icone_pesquisa
@@ -674,7 +676,7 @@ class Menu(Frame):
         #JANELA PARA PESQUISAR MANUTENÇÕES DOS VEICULOS
         self.janela_pesquisar_m = Toplevel()
         self.janela_pesquisar_m.title("Pesquisar manutenções") #titulo da janela
-        icon_lupa = PhotoImage(file="recursos/lupa-1.png")
+        icon_lupa = PhotoImage(file="src/lupa-1.png")
         self.janela_pesquisar_m.iconphoto(False, icon_lupa) #icone
         self.janela_pesquisar_m.resizable(False,False) #impedir que a janela seja redimensionada
         self.janela_pesquisar_m.geometry("600x300+500+200") #posicionamento e tamanho da janela
