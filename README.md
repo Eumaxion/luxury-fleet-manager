@@ -12,7 +12,7 @@ It’s object-oriented (POO), with classes representing vehicles, clients, and i
 Although the project is finished and graded, I’m now revisiting it to improve the structure and readability, as I’ve gained more programming experience since its first version.
 ## Preview
 
-![App Preview](./assets/icons/preview.png)
+![App Preview](./assets/previews/preview.png)
 
 ## Features
 
