@@ -49,10 +49,6 @@ Run the app using:
 
 ```python3 app.py```
 
-On Linux  
-You can use the included Makefile:  
-
-```make```
 ## Technologies Used
 
 Python 3  
