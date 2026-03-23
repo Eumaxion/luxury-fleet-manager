@@ -782,7 +782,7 @@ class Menu(Frame):
     def sair(self):
         #destroir a frame atual e voltar a frame inicial de login
         self.destroy()
-        from window import Window
+        from app.main_window import Window
         Window(self.master)
     def exit(self): #metodo para encerrar o programa
         self.master.destroy()
