@@ -50,7 +50,6 @@ class Login:
 
         if len(resposta) != 0:
             self.janela_login.destroy()
-            self.janela.destroy()
             menu = Menu(self.janela)
             menu.pack(fill='both', expand=True)
         else:
