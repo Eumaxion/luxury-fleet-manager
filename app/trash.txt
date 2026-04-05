@@ -33,7 +33,7 @@ class Menu(Frame):
                         command=lambda: self.indicar(self.indicador_sair, exit_page.quit_exit))
         self.indicador_sair = Label(self.frame, text='', bg="#ADD8E6")
 
-        self.frame2 = Frame(self, highlightbackground='black', highlightthickness=2, bg='#B0E0E6')
+        self.frame2 = Frame(self, highlightbackground='black', highlightthickness=2, bg='#743913')
 
         # Posicionando os botões, indicadores e as frames
         b_veic_disp.place(x=50, y=100)  #
@@ -102,7 +102,7 @@ class Menu(Frame):
         frame_pesquisar = Frame(veiculos_frame)
         icone_pesquisa = tkinter.PhotoImage(file='assets/icons/magnifying_glass.png')
         self.buttom_pesquisar = Button(frame_pesquisar, cursor='hand2', text='Pesquisar\nveiculo', font="sylfaen 10 bold", image=icone_pesquisa,
-                                       compound='left', background='#B0E0E6', command=self.pesquisar_veiculo)
+                                       compound='left', background='#743913', command=self.pesquisar_veiculo)
         self.buttom_pesquisar.image = icone_pesquisa
 
         #POSICIONANDO USANDO GRID
@@ -138,7 +138,7 @@ class Menu(Frame):
         self.label_categoria = Label (adicionar_veiculo, text="Categoria", font="sylfaen 12 bold")
         self.categoria = Spinbox(adicionar_veiculo, values=("Gold", "Silver", "Economico"), wrap=True)
         self.inserir_dados = Button(adicionar_veiculo, text="Confirmar", cursor='hand2', font="sylfaen 12 bold", bd=5,
-                                    relief="raised", bg='#B0E0E6', command= lambda: self.mascara_inserir_veiculo(self.nova_placa.get(), self.tipo_veiculo.get(), self.nova_aquisicao.get(), self.check_valor.get(), self.inserir_data_da_legalizacao.get(), self.categoria.get()))
+                                    relief="raised", bg='#743913', command= lambda: self.mascara_inserir_veiculo(self.nova_placa.get(), self.tipo_veiculo.get(), self.nova_aquisicao.get(), self.check_valor.get(), self.inserir_data_da_legalizacao.get(), self.categoria.get()))
         self.mensagem_add = Label(adicionar_veiculo, text="", font="sylfaen 12 bold", fg="red")
 
         #POSICIONANDO WIDGETS NA FRAME
@@ -340,7 +340,7 @@ class Menu(Frame):
         self.lb_id = Label(self.frame_pesquisar, text="ID ou PLACA", font="sylfaen 10 bold" )
         self.ent_id = Entry(self.frame_pesquisar)
         self.bttm_id = Button(self.frame_pesquisar, cursor='hand2',text="OK", font="sylfaen 10 bold", bd=5,
-                              relief="raised", bg='#B0E0E6', command=lambda: self.retorno_pesquisa(self.ent_id.get()))
+                              relief="raised", bg='#743913', command=lambda: self.retorno_pesquisa(self.ent_id.get()))
         self.mensagem_erro = Label(self.frame_pesquisar, text=" ", font="sylfaen 10 bold", fg='red')
 
         #TABELA QUE MOSTRARÁ O RESULTADO DA PESQUISA

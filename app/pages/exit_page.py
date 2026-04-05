@@ -1,16 +1,25 @@
-from tkinter import *
+from app.modules import *
 
-class ExitPage(Frame):
+class Exit_page:
     def __init__(self, parent):
-        super().__init__(parent)
+        self.parent = parent
 
-        Label(self, text="SAIR", font="sylfaen 16 bold").pack(pady=20)
-
-        Button(self, text="Voltar", command=self.voltar).pack(pady=10)
-        Button(self, text="Sair", command=self.sair).pack(pady=10)
-
-    def voltar(self):
-        self.destroy()
-
+    def quit_exit(self):
+        #ABA PARA VOLTAR A TELA DE LOGIN
+        teste = Frame(self.parent)
+        lb = LabelFrame(teste, text="SAIR", font='sylfaen 12 bold')
+        botao_sair2 = Button(lb, text="Voltar ao menu inicial", font='sylfaen 12 bold', command=self.sair)
+        quit_program = Button(lb, text="Sair do programa", font='sylfaen 12 bold', command=self.exit)
+        botao_sair2.grid()
+        quit_program.grid()
+        lb.grid(pady=265, padx=252)
+        teste.pack()
     def sair(self):
-        self.winfo_toplevel().destroy()
+        #destroir a frame atual e voltar a frame inicial de login
+        self.parent.destroy()
+        from app.main_window import Window
+        root = Tk()
+        Window(root)
+        root.mainloop()
+    def exit(self): #metodo para encerrar o programa
+        self.parent.destroy()

@@ -1,10 +1,4 @@
-import os
-import tkinter
-from tkinter import ttk
-from tkinter import *
-import sqlite3
-from app.database import Database
-from app.menu import Menu
+from app.modules import *
 
 def manutencao_page(self):
     #ABA PARA MOSTRAR OS VEICULOS EM ALERTA DE MANUTENÇÃO
@@ -49,12 +43,12 @@ def manutencao_page(self):
                                         offvalue=0, onvalue=1, command=self.data_atual_manutencao)
 
     self.mensagem_atualizar = Label(self.frame_att_manutencao, text='', font="sylfaen 12 bold", fg='red')
-    self.btt_enviar_manutencao = Button(self.frame_att_manutencao, cursor='hand2', bd=5, relief="raised", bg='#B0E0E6',
+    self.btt_enviar_manutencao = Button(self.frame_att_manutencao, cursor='hand2', bd=5, relief="raised", bg='#743913',
                             text="Confirmar", font="sylfaen 12 bold", command=lambda: self.atualizar_manutencao
         (self.ent_id_veic.get(), self.ent_dias_manut.get(), self.ent_data_inicio.get(), self.ent_detalhes.get()))
     icone_pesquisa = tkinter.PhotoImage(file='assets/icons/magnifying_glass.png')
     self.buttom_pesquisar_manutencao = Button(self.frame_att_manutencao, cursor='hand2', text='Pesquisar\nveiculo', font="sylfaen 10 bold", image=icone_pesquisa,
-                                    compound='left', background='#B0E0E6', command=self.pesquisar_manutencao)
+                                    compound='left', background='#743913', command=self.pesquisar_manutencao)
     self.buttom_pesquisar_manutencao.image = icone_pesquisa
 
     #POSICIONANDO OS WIDGETS NA FRAME
@@ -173,7 +167,7 @@ def pesquisar_manutencao(self):
     self.ent_id_m = Entry(self.frame_pesquisar_m)
     self.ent_id_manutencao = Entry(self.frame_pesquisar_m)
     self.bttm_id_m = Button(self.frame_pesquisar_m, cursor='hand2',text="OK", font="sylfaen 10 bold", bd=5,
-                            relief="raised", bg='#B0E0E6',
+                            relief="raised", bg='#743913',
                             command= lambda: self.buscar_manutencoes(self.ent_id_m.get(), self.ent_id_manutencao.get()))
     self.mensagem_erro_m = Label(self.frame_pesquisar_m, text=" ", font="sylfaen 10 bold", fg='red')
 

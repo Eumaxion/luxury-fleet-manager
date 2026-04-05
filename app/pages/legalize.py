@@ -1,10 +1,4 @@
-import os
-import tkinter
-from tkinter import ttk
-from tkinter import *
-import sqlite3
-from app.database import Database
-from app.menu import Menu
+from app.modules import *
 
 def legalizar_page(self):
     #ABA PARA MOSTRAR OS VEICULOS EM ALERTA DE LEGALIZAR
@@ -38,7 +32,7 @@ def legalizar_page(self):
     self.check_data_atual = Checkbutton(frame_atualizar_status, text="Data atual", variable=self.check_valor2,
                                         offvalue=0, onvalue=1, command=lambda: self.data_atual_legalizar(self.check_valor2.get()))
     self.mensagem_legalizacao = Label(frame_atualizar_status, text="", font="sylfaen 12 bold", fg='red' )
-    self.button_confirm_legalizar = Button(frame_atualizar_status, bd=5, cursor='hand2', relief="raised", bg='#B0E0E6',
+    self.button_confirm_legalizar = Button(frame_atualizar_status, bd=5, cursor='hand2', relief="raised", bg='#743913',
                                             text="Confirmar", font="sylfaen 12 bold", command=lambda:self.atualizar_legalizacao(self.entry_data_legalizar.get(), self.entry_id_legalizar.get()))
 
     #POSICIONANDO A TABELA E OS WIDGETS NA FRAME

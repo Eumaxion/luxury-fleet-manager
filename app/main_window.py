@@ -1,53 +1,26 @@
-import os
-import tkinter
-from tkinter import ttk
-from tkinter import *
-import sqlite3
-from app.database import Database
-from app.login_wd import Login
-from app.sign_up_wd import Sign_up
+from app.modules import *
 
 '''################## CLASSE Window/ JANELA INICIAL ###################################################'''
 
-class Window:
+class Window(Frame):
     ##db_auto = 'database/ManagerLuxury.db'# variavel para acessar o banco de dados
     def __init__(self, root): #construtor recebe a rota
+        super().__init__()
+        self.root = root
         self.db = Database()
-        self.janela = root #janela inicial vai receber root
-        self.janela.title("Sistema de Gerenciamento de Frota Luxury Wheels")  # Adicionando um titulo a janela principal do programa
-        self.janela.geometry(f"900x600+200+50")  # redimensionando o tamanho e posição da janela do programa de acordo com o tamanho da tela
-        self.caminho_icone = os.path.join("assets", "icons", "icone1.png")
-        self.icone = PhotoImage(file=self.caminho_icone)
-        self.janela.iconphoto(False, self.icone)  # alterando o icone da janela
-        self.janela['bg'] = '#B0E0E6' #alterando a cor de fundo da janela inicial
-        #criando frame inicial com botão de login e exit
-        self.janela.state("zoomed")
-        self.janela.minsize(900, 600)
-        #self.janela.resizable(0,0) # impedir que a janela seja aumentada
-
-        self.frame_inicial = Frame(self.janela) #Criando o frame inicial que vai receber a tela para login ou sair
-        self.frame_inicial['bg'] = '#B0E0E6' 
-        self.frame = LabelFrame(self.frame_inicial, text="Sistema de Gerenciamento de Frota Luxury Wheels", bd=8,
+        self.frame_inicial = Frame(self.root, bd=4, bg='#743913', highlightthickness=3)
+        self.frame = LabelFrame(self.frame_inicial, text="  Sistema de Gerenciamento de Frota Luxury Wheels ", bd=8,
                                 relief="groove", font="sylfaen 15 bold", bg="#E6E6FA") #frame com login ou sair
         self.login_button = Button(self.frame, text="Login", cursor='hand2', font="sylfaen 15 bold", bd=5, relief="raised",
-                            bg='#B0E0E6', command=lambda: Login(self.janela).login()) #criando botão de login que vai abrir a janela para inserir os dados de autenticação
-        self.login_button.grid(row=0, column=0, pady=20, padx=200) #posicionando botão login
+                            bg='#743913', command=lambda: Login(self.root).login()) #criando botão de login que vai abrir a janela para inserir os dados de autenticação
         self.cadastrar = Button(self.frame, text="Cadastrar usuário", cursor='hand2', font="sylfaen 15 bold",
-                                bd=5, relief="raised", bg='#B0E0E6', command=lambda: Sign_up(self.janela).cadastrar())
-        self.cadastrar.grid(row=1, column=0)
-        self.exit = Button(self.frame, text="Sair", cursor='hand2', font="sylfaen 15 bold", bd=5, relief="raised",
-                           bg='#B0E0E6', command=self.exit) #criando botão de sair
-        self.exit.grid(row=2, column=0, pady= 20) #posicionando botão de sair
-        self.frame.grid(pady=200, padx=200) #posicionando frame
+                                bd=5, relief="raised", bg='#743913', command=lambda: Sign_up(self.root).cadastrar())
+        self.exit_button = Button(self.frame, text="Sair", cursor='hand2', font="sylfaen 15 bold", bd=5, relief="raised",
+                           bg='#743913', command=lambda: self.root.destroy()) #criando botão de sair
         self.login_button.focus_set()
-        self.janela.bind('<Escape>', lambda event: self.janela.destroy())
-        self.janela.bind('<Return>', self.enter_pressed)
-        self.frame_inicial.pack() #posicionado frame inicial
 
-    def exit(self): #metodo para encerrar o programa
-        self.janela.destroy()
-
-    def enter_pressed(self, event):
-        widget = self.janela.focus_get()
-        if isinstance(widget, Button):
-            widget.invoke()
+        self.frame_inicial.place(relx=0.21, rely=0.2, relheight=0.5, relwidth=0.62)
+        self.frame.place(relx=0, rely=0, relheight=1, relwidth=1)#posicionando frame
+        self.login_button.place(relx=0.4, rely=0.1) #posicionando botão login
+        self.cadastrar.place(relx=0.3, rely=0.35)
+        self.exit_button.place(relx=0.41, rely=0.6) #posicionando botão de sair

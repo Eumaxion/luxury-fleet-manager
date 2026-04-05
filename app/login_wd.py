@@ -1,10 +1,4 @@
-import os
-import tkinter
-from tkinter import ttk
-from tkinter import *
-import sqlite3
-from app.database import Database
-from app.menu import Menu
+from app.modules import *
 
 '''###########################--JANELA LOGIN--#################################'''
 
@@ -28,7 +22,7 @@ class Login:
         insert_usuario.grid(row=0, column=1, columnspan=2)
         insert_senha = Entry(frame_login, show='*')
         insert_senha.grid(row=1, column=1)
-        confirmar = Button(frame_login, text="acessar", bd=5, cursor='hand2', relief="raised", bg='#B0E0E6', font="sylfaen 15 bold",
+        confirmar = Button(frame_login, text="acessar", bd=5, cursor='hand2', relief="raised", bg='#743913', font="sylfaen 15 bold",
                            command= lambda: self.validacao(insert_usuario.get(), insert_senha.get()))
         self.mensagem = Label(frame_login, text='')
         self.mensagem.grid(row=2,columnspan=2)
@@ -51,6 +45,6 @@ class Login:
         if len(resposta) != 0:
             self.janela_login.destroy()
             menu = Menu(self.janela)
-            menu.pack(fill='both', expand=True)
+            menu.grid(row=0,column=0)
         else:
             self.mensagem['text'] = 'Usuario ou senhas incorreto'''
