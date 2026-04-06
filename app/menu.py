@@ -1,35 +1,42 @@
 from app.modules import *
+from app.pages.exit_page import Exit_page
 
 '''################################################# CLASSE MENU ###################################################'''
-class Menu():
-    def __init__(self, parent):
-        self.janela = parent
-        self.db = Database()
+class Menu(Frame):
+    def __init__(self, root, app):
         super().__init__()
-        self['bd'] = 2 #defininado o tamanho da borda
-        self['relief'] = SOLID #definindo o tipo
+        self.root = root
+        self.app = app
+        self.db = Database()
+        #self['bd'] = 2 #defininado o tamanho da borda
+        #self['relief'] = SOLID #definindo o tipo
 
+        self.frame_principal = Frame(self.root, highlightbackground='black', highlightthickness=2, bg="#AC4E0F")
+        self.frame_esquerdo = Frame(self.frame_principal, highlightbackground='black', highlightthickness=2, bg='#6AE298')
+        self.frane_direito = Frame(self.frame_esquerdo, highlightbackground='black', highlightthickness=2, bg='#6AE298')
         # frame que vai estar os botões e os indicadores
-        self.frame = Frame(self, bg='#ADD8E6', highlightbackground='black', highlightthickness=2, width=200, height=600)
+        self.frame = Frame(self.frame_esquerdo, bg="#6AE298", highlightbackground='black', highlightthickness=2)
 
         # criando os botões para as abas e seus respectivos indicadores!
-        b_veic_disp = Button(self.frame, text="VEICULOS", cursor='hand2', font="sylfaen 13 bold", bd=0, background="#ADD8E6",
+        b_veic_disp = Button(self.frame, text="VEICULOS", cursor='hand2', font="sylfaen 13 bold", bd=0, background="#6AE298",
                              command=lambda: self.indicar(self.indicador_disponiveis, self.veiculos_page))
-        self.indicador_disponiveis = Label(self.frame, text='', bg="#ADD8E6")
-        b_legalizar = Button(self.frame, text="LEGALIZAR", cursor='hand2', font="sylfaen 13 bold", bd=0, background="#ADD8E6",
+        self.indicador_disponiveis = Label(self.frame, text='', bg="#6AE298")
+        b_legalizar = Button(self.frame, text="LEGALIZAR", cursor='hand2', font="sylfaen 13 bold", bd=0, background="#6AE298",
                              command=lambda: self.indicar(self.indicador_legalizar, self.legalizar_page))
-        self.indicador_legalizar = Label(self.frame, text='', bg="#ADD8E6")
-        b_manutencao = Button(self.frame, text="MANUTENÇÃO", cursor='hand2', font="sylfaen 13 bold", bd=0, background="#ADD8E6",
+        self.indicador_legalizar = Label(self.frame, text='', bg="#6AE298")
+        b_manutencao = Button(self.frame, text="MANUTENÇÃO", cursor='hand2', font="sylfaen 13 bold", bd=0, background="#6AE298",
                               command=lambda: self.indicar(self.indicador_manutencao, self.manutencao_page))
-        self.indicador_manutencao = Label(self.frame, text='', bg="#ADD8E6")
-        exit_page = Exit_page(self.frame)
-        b_sair = Button(self.frame, text="SAIR", cursor='hand2', font="sylfaen 13 bold", bd=0, background="#ADD8E6",
-                        command=lambda: self.indicar(self.indicador_sair, exit_page.quit_exit))
-        self.indicador_sair = Label(self.frame, text='', bg="#ADD8E6")
+        self.indicador_manutencao = Label(self.frame, text='', bg="#6AE298")
+        exit_page = Exit_page(self.frame).quit_exit()
+        b_sair = Button(self.frame, text="SAIR", cursor='hand2', font="sylfaen 13 bold", bd=0, background="#6AE298",
+                        command=lambda: self.indicar(self.indicador_sair, exit_page.quit_exit()))
+        self.indicador_sair = Label(self.frame, text='', bg="#E26A6A")
 
-        self.frame2 = Frame(self, highlightbackground='black', highlightthickness=2, bg='#743913')
 
         # Posicionando os botões, indicadores e as frames
+        self.frame_principal.place(relx=0, rely=0, relheight=1, relwidth=1)
+        self.frame_esquerdo.place(relx=0, rely=0, relheight=1, relwidth=0.25)
+        self.frame.place(relx=0, rely=0, relheight=1, relwidth=1)
         b_veic_disp.place(x=50, y=100)  #
         self.indicador_disponiveis.place(x=10, y=90, width=10, height=60)
         b_legalizar.place(x=50, y=200)
@@ -38,20 +45,18 @@ class Menu():
         self.indicador_manutencao.place(x=10, y=290, width=10, height=60)
         b_sair.place(x=50, y=400)
         self.indicador_sair.place(x=10, y=390, width=10, height=60)
-        self.frame.grid(row=0, column=0)
-        self.frame2.grid(row=1, column=0)
 
     def delet_pages(self):
         #DELETAR A FRAME ATUAL PARA POSICIONAR A NOVA FRAME QUE FOR CLICADA
-        for item in self.frame2.winfo_children():
+        for item in self.frame_principal.winfo_children():
             item.destroy()
 
     def remover_indicador(self):
         #TIRAR A MARCAÇÃO DOS INDICADORE (ALTERAR A COR)
-        self.indicador_disponiveis.config(bg='#ADD8E6')
-        self.indicador_sair.config(bg='#ADD8E6')
-        self.indicador_manutencao.config(bg='#ADD8E6')
-        self.indicador_legalizar.config(bg='#ADD8E6')
+        self.indicador_disponiveis.config(bg='#6AE298')
+        self.indicador_sair.config(bg='#6AE298')
+        self.indicador_manutencao.config(bg='#6AE298')
+        self.indicador_legalizar.config(bg='#6AE298')
 
     def indicar(self, indicador, page):
         #MOTRAR O INDICADOR QUE FOI CLICADO, DELETAR A FRAME ATUAL E INSERIR OS DADOS DA FRAME INDICADA.
@@ -61,7 +66,7 @@ class Menu():
         page()
     # ABA PARA MOSTRAR OS DADOS DOS VEICULOS, ALERTAR A QUANTIDADE DE VEICULOS DISPONIVEIS, INSERIR E PESQUISAR.
     def veiculos_page(self):
-        veiculo = Frame(self.frame2,width=900)
+        veiculo = Frame(self.frame_principal,width=900)
         veiculos_frame = LabelFrame(veiculo, text="FROTA", font="sylfaen 16 bold")
 
         #--- CRIANDO A TABELA DA ABA VEICULOS --- #
@@ -163,6 +168,7 @@ class Menu():
             dados = resultado.fetchall()
             con.commit()
             return dados
+
     def data_atual_adicionar(self,valor):
         #Função para inserir a data de hoje caso seja marcado a opção em adicionar veiculo
         hoje = datetime.today()
@@ -377,7 +383,7 @@ class Menu():
             return
         informacao = informacao.upper()
         id_parametro = informacao, informacao
-        registros_db = self.db_consulta(query_pesquisa, id_parametro)
+        registros_db = self.db.query(query_pesquisa, id_parametro)
         if registros_db == []:
             self.mensagem_erro['text'] = 'Veiculo não encontrado!'
             return

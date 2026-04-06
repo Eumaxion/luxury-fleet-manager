@@ -16,22 +16,22 @@ class Menu(Frame):
         self['relief'] = SOLID #definindo o tipo
 
         # frame que vai estar os botões e os indicadores
-        self.frame = Frame(self, bg='#ADD8E6', highlightbackground='black', highlightthickness=2, width=200, height=600)
+        self.frame = Frame(self, bg='#6AE298', highlightbackground='black', highlightthickness=2, width=200, height=600)
 
         # criando os botões para as abas e seus respectivos indicadores!
-        b_veic_disp = Button(self.frame, text="VEICULOS", cursor='hand2', font="sylfaen 13 bold", bd=0, background="#ADD8E6",
+        b_veic_disp = Button(self.frame, text="VEICULOS", cursor='hand2', font="sylfaen 13 bold", bd=0, background="#6AE298",
                              command=lambda: self.indicar(self.indicador_disponiveis, self.veiculos_page))
-        self.indicador_disponiveis = Label(self.frame, text='', bg="#ADD8E6")
-        b_legalizar = Button(self.frame, text="LEGALIZAR", cursor='hand2', font="sylfaen 13 bold", bd=0, background="#ADD8E6",
+        self.indicador_disponiveis = Label(self.frame, text='', bg="#6AE298")
+        b_legalizar = Button(self.frame, text="LEGALIZAR", cursor='hand2', font="sylfaen 13 bold", bd=0, background="#6AE298",
                              command=lambda: self.indicar(self.indicador_legalizar, self.legalizar_page))
-        self.indicador_legalizar = Label(self.frame, text='', bg="#ADD8E6")
-        b_manutencao = Button(self.frame, text="MANUTENÇÃO", cursor='hand2', font="sylfaen 13 bold", bd=0, background="#ADD8E6",
+        self.indicador_legalizar = Label(self.frame, text='', bg="#6AE298")
+        b_manutencao = Button(self.frame, text="MANUTENÇÃO", cursor='hand2', font="sylfaen 13 bold", bd=0, background="#6AE298",
                               command=lambda: self.indicar(self.indicador_manutencao, self.manutencao_page))
-        self.indicador_manutencao = Label(self.frame, text='', bg="#ADD8E6")
+        self.indicador_manutencao = Label(self.frame, text='', bg="#6AE298")
         exit_page = Exit_page(self.frame)
-        b_sair = Button(self.frame, text="SAIR", cursor='hand2', font="sylfaen 13 bold", bd=0, background="#ADD8E6",
+        b_sair = Button(self.frame, text="SAIR", cursor='hand2', font="sylfaen 13 bold", bd=0, background="#6AE298",
                         command=lambda: self.indicar(self.indicador_sair, exit_page.quit_exit))
-        self.indicador_sair = Label(self.frame, text='', bg="#ADD8E6")
+        self.indicador_sair = Label(self.frame, text='', bg="#6AE298")
 
         self.frame2 = Frame(self, highlightbackground='black', highlightthickness=2, bg='#743913')
 
@@ -54,10 +54,10 @@ class Menu(Frame):
 
     def remover_indicador(self):
         #TIRAR A MARCAÇÃO DOS INDICADORE (ALTERAR A COR)
-        self.indicador_disponiveis.config(bg='#ADD8E6')
-        self.indicador_sair.config(bg='#ADD8E6')
-        self.indicador_manutencao.config(bg='#ADD8E6')
-        self.indicador_legalizar.config(bg='#ADD8E6')
+        self.indicador_disponiveis.config(bg='#6AE298')
+        self.indicador_sair.config(bg='#6AE298')
+        self.indicador_manutencao.config(bg='#6AE298')
+        self.indicador_legalizar.config(bg='#6AE298')
 
     def indicar(self, indicador, page):
         #MOTRAR O INDICADOR QUE FOI CLICADO, DELETAR A FRAME ATUAL E INSERIR OS DADOS DA FRAME INDICADA.

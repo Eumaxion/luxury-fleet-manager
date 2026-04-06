@@ -13,4 +13,3 @@ from app.login_wd import Login
 from app.sign_up_wd import Sign_up
 from app.main_window import Window
 from app.menu import Menu
-from app.pages.exit_page import Exit_page

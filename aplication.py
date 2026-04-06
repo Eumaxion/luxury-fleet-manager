@@ -34,11 +34,12 @@ class App:
     def trocar_frame(self, novo_frame):
         if self.frame_atual is not None:
             self.frame_atual.destroy()  # apaga tela atual
-        self.frame_atual = novo_frame(root)
+        self.frame_atual = novo_frame(self.root)
         self.frame_atual.place()
 
     def start_window(self):
-        self.trocar_frame(Window)
+        self.frame_atual = Menu(self.root, self)
+        self.frame_atual.place()
 
     def mostrar_menu(self):
         self.trocar_frame(Menu)

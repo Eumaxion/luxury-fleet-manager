@@ -3,10 +3,11 @@ from app.modules import *
 '''###########################--JANELA LOGIN--#################################'''
 
 class Login:
-    def __init__(self, parent):
-        self.janela = parent
+    def __init__(self, root, app):
+        self.root = root
+        self.app = app
     def login(self):
-        self.janela_login = Toplevel(self.janela) # abrindo a tela de login em uma janela menor
+        self.janela_login = Toplevel() # abrindo a tela de login em uma janela menor
         self.db = Database()
         self.janela_login.title("LOGIN") #titulo
         icon3 = PhotoImage(file="assets/icons/icone2.png")
@@ -33,7 +34,6 @@ class Login:
         self.janela_login.grab_set()
         self.janela_login.focus_set()
         insert_usuario.focus()  # para iniciar com entry usuario
-        self.janela_login.transient(self.janela)
 
     def validacao(self, user, senha): #metodo para verificar se a senha e usuario estão corretos
         query = 'SELECT * FROM Usuarios WHERE usuario = ? and senha = ?'
@@ -44,7 +44,6 @@ class Login:
 
         if len(resposta) != 0:
             self.janela_login.destroy()
-            menu = Menu(self.janela)
-            menu.grid(row=0,column=0)
+            self.app.mostrar_menu()
         else:
             self.mensagem['text'] = 'Usuario ou senhas incorreto'''
