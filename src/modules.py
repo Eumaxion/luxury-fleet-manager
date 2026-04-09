@@ -8,8 +8,8 @@ import sqlite3
 import re
 import os
 from datetime import *
-from app.database import Database
-from app.login_wd import Login
-from app.sign_up_wd import Sign_up
-from app.main_window import Window
-from app.menu import Menu
+from src.database import Database
+from src.login_wd import Login
+from src.sign_up_wd import Sign_up
+from src.main_window import Window
+from src.menu import Menu

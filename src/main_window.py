@@ -1,4 +1,4 @@
-from app.modules import *
+from src.modules import *
 
 '''################## CLASSE Window/ JANELA INICIAL ###################################################'''
 

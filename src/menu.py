@@ -1,8 +1,8 @@
-from app.modules import *
-from app.pages.exit_page import Exit_page
-from app.pages.legalize import Legalize
-from app.pages.vehicles import Veiculos
-from app.pages.maintence import Maintence
+from src.modules import *
+from src.pages.exit_page import Exit_page
+from src.pages.legalize import Legalize
+from src.pages.vehicles import Veiculos
+from src.pages.maintence import Maintence
 
 '''################################################# CLASSE MENU ###################################################'''
 class Menu(Frame):
@@ -17,16 +17,15 @@ class Menu(Frame):
         #self['relief'] = SOLID #definindo o tipo
         # frame que vai estar os botões e os indicadores
         self.frame = Frame(self.frame_esquerdo, bg="#6AE298", highlightbackground='black', highlightthickness=2)
-        veiculos_page = Veiculos(self.frame, self.root)
         # criando os botões para as abas e seus respectivos indicadores!
         b_veic_disp = Button(self.frame, text="VEICULOS", cursor='hand2', font="sylfaen 13 bold", bd=0, background="#6AE298",
                              command=lambda: self.indicar(self.indicador_disponiveis, Veiculos(self.frame, self.root)))
         self.indicador_disponiveis = Label(self.frame, text='', bg="#6AE298")
         b_legalizar = Button(self.frame, text="LEGALIZAR", cursor='hand2', font="sylfaen 13 bold", bd=0, background="#6AE298",
-                             command=lambda: self.indicar(self.indicador_legalizar, self.trocar_frame(Legalize(self.frame, self.root))))
+                             command=lambda: self.indicar(self.indicador_legalizar, Legalize(self.frame, self.root)))
         self.indicador_legalizar = Label(self.frame, text='', bg="#6AE298")
         b_manutencao = Button(self.frame, text="MANUTENÇÃO", cursor='hand2', font="sylfaen 13 bold", bd=0, background="#6AE298",
-                              command=lambda: self.indicar(self.indicador_manutencao, self.trocar_frame(Maintence(self.frame, self.root))))
+                              command=lambda: self.indicar(self.indicador_manutencao, Maintence(self.frame, self.root)))
         self.indicador_manutencao = Label(self.frame, text='', bg="#6AE298")
         b_sair = Button(self.frame, text="SAIR", cursor='hand2', font="sylfaen 13 bold", bd=0, background="#6AE298",
                         command=lambda: self.indicar(self.indicador_sair, (Exit_page(self.frame, self.root))))
@@ -46,9 +45,9 @@ class Menu(Frame):
         self.indicador_sair.place(x=10, y=390, width=10, height=60)
         self.start_frame()
 
-    def delet_pages(self):
+    def delet_page(self, frame_atual):
         #DELETAR A FRAME ATUAL PARA POSICIONAR A NOVA FRAME QUE FOR CLICADA
-        for item in self.frame_principal.winfo_children():
+        for item in frame_atual.winfo_children():
             item.destroy()
 
     def remover_indicador(self):
@@ -62,17 +61,16 @@ class Menu(Frame):
         #MOTRAR O INDICADOR QUE FOI CLICADO, DELETAR A FRAME ATUAL E INSERIR OS DADOS DA FRAME INDICADA.
         self.remover_indicador()
         indicador.config(bg='red')
-        #self.delet_pages()
         self.trocar_frame(novo_frame)
 
     def trocar_frame(self, novo_frame):
         if self.frame_atual is not None:
-            self.frame_atual.destroy()  # apaga tela atual
+            self.delet_page(self.frame_atual)# apaga tela atual
         self.frame_atual = novo_frame
         self.frame_atual.place()
 
     def start_frame(self):
-        self.frame_atual = Exit_page(self.root, self.app)
+        self.frame_atual = Veiculos(self.root, self.app)
         self.frame_atual.place()
 
     def mostrar_menu(self):

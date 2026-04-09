@@ -1,10 +1,16 @@
-from app.modules import *
+from src.modules import *
 
 class Maintence(Frame):
+    def __init__(self, root, app):
+        super().__init__()
+        self.root = root
+        self.app = app
+        self.db = Database()
+        self.manutencao_page()
+
     def manutencao_page(self):
         #ABA PARA MOSTRAR OS VEICULOS EM ALERTA DE MANUTENÇÃO
-        manutencao = Frame(self.frame2)
-        frame_manutencao = LabelFrame(manutencao, text="VEICULOS EM ALERTA:", font="sylfaen 16 bold")
+        frame_manutencao = LabelFrame(self, text="VEICULOS EM ALERTA:", font="sylfaen 16 bold")
         self.tv_manutencao = ttk.Treeview(frame_manutencao, columns=('id_veiculo', 'placa', 'status','ultima',
                                                                         'proxima', 'n_utilizacoes', 'dias'), height=13, show='headings')
         self.tv_manutencao.column('id_veiculo', minwidth=0, width=40)
@@ -67,7 +73,7 @@ class Maintence(Frame):
         self.btt_enviar_manutencao.grid(row=7, column=0, columnspan=4)
         self.frame_att_manutencao.grid(row=2,column=0,padx=53, sticky='we')
         frame_manutencao.grid(row=1, padx=20)
-        manutencao.pack(expand=TRUE, fill=BOTH)
+        self.place(relx=0.251, rely=0.005, relheight=0.99, relwidth=0.745)
 
     def tabela_manutencao(self):
         # QUERY PARA POPULAR A TABELA DE VEICULOS EM ALERTA QUE PRECISAM DE MANUTENÇÃO
@@ -76,7 +82,7 @@ class Maintence(Frame):
         informacoes = []
         query_dados_manutencao = ('SELECT id_veiculo, placa, disponibilidade, ultima_manutencao, proxima_manutencao, utilizacoes '
                                     'FROM automoveis ORDER BY utilizacoes DESC')
-        datas_proxima_manutencao = self.db_consulta(query_dados_manutencao)
+        datas_proxima_manutencao = self.db.query(query_dados_manutencao)
         for item in datas_proxima_manutencao:
             data_proxima = datetime.strptime(item[4], "%d/%m/%Y")
             dias = data_proxima - data_atual
@@ -127,7 +133,7 @@ class Maintence(Frame):
 
         query_status = 'SELECT disponibilidade FROM automoveis WHERE id_veiculo = ?'
         parametros_status = [ent_id_veic] #VERIFICANDO SE O VEICULO ENCONTRA-SE DISPONIVEL!
-        resultado_status = self.db_consulta(query_status, parametros_status)
+        resultado_status = self.db.query(query_status, parametros_status)
         if resultado_status[0][0] == 'ocupado' or resultado_status[0][0] == 'em manutenção':
             self.mensagem_atualizar['text'] = "O veiculo não encontra-se disponivel!"
             return
@@ -135,7 +141,7 @@ class Maintence(Frame):
         #INSERINDO NOVA MANUTENÇÃO
         query_update_manutencao = "INSERT INTO manutencao (veiculo, detalhes, data, duracao) VALUES (?,?,?,?)"
         parametros_update_manutencao = ent_id_veic, detalhes, dt_inicio, ent_dias_manut
-        self.db_consulta(query_update_manutencao, parametros_update_manutencao)
+        self.db.query(query_update_manutencao, parametros_update_manutencao)
 
         dt_inicio = datetime.strptime(dt_inicio, '%d/%m/%Y')
         ocupado_ate = dt_inicio + timedelta(int(ent_dias_manut))
@@ -148,7 +154,7 @@ class Maintence(Frame):
         query_update_veic = ("UPDATE automoveis SET disponibilidade = 'em manutencao', utilizacoes = 0, disponivel_em = ?,"
                                 "ultima_manutencao = ?, proxima_manutencao = ? WHERE id_veiculo = ?")
         parametros_update_veic = ocupado_ate,dt_inicio,proxima_manu,ent_id_veic
-        self.db_consulta(query_update_veic, parametros_update_veic)
+        self.db.query(query_update_veic, parametros_update_veic)
         self.mensagem_atualizar['text'] = "Status atualizado com sucesso!"
         self.tabela_manutencao()
 
@@ -214,7 +220,7 @@ class Maintence(Frame):
                                 'LEFT JOIN manutencao ON automoveis.id_veiculo = manutencao.veiculo WHERE id_veiculo = ? OR placa = ?')
             id_placa = id_placa.upper()
             id_parametro = id_placa, id_placa
-            registros_db = self.db_consulta(query_pesquisa, id_parametro)
+            registros_db = self.db.query(query_pesquisa, id_parametro)
             if registros_db == []: #mensagem de erro caso a placa ou ID não pertença a nenhum veiculo
                 self.mensagem_erro_m['text'] = 'Não há veiculo com os dados informados!'
                 return
@@ -223,7 +229,7 @@ class Maintence(Frame):
             query_pesquisa = ('SELECT id_veiculo, id_manutencao, placa, detalhes, data, duracao FROM automoveis '
                                 'LEFT JOIN manutencao ON automoveis.id_veiculo = manutencao.veiculo WHERE id_manutencao = ?')
             id_parametro = [id_m]
-            registros_db = self.db_consulta(query_pesquisa, id_parametro)
+            registros_db = self.db.query(query_pesquisa, id_parametro)
             if registros_db == []:
                 self.mensagem_erro_m['text'] = 'Manutenção não encontrada!'
                 return

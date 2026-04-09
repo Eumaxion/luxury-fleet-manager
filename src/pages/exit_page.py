@@ -1,5 +1,5 @@
-from app.modules import *
-from app.main_window import Window
+from src.modules import *
+from src.main_window import Window
 
 class Exit_page(Frame):
     def __init__(self, root, app):

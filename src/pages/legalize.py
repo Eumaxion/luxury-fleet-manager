@@ -1,10 +1,16 @@
-from app.modules import *
+from src.modules import *
 
+#ABA PARA MOSTRAR OS VEICULOS EM ALERTA DE LEGALIZAR
 class Legalize(Frame):
+    def __init__(self, root, app):
+        super().__init__()
+        self.root = root
+        self.app = app
+        self.db = Database()
+        self.legalizar_page()
+        
     def legalizar_page(self):
-        #ABA PARA MOSTRAR OS VEICULOS EM ALERTA DE LEGALIZAR
-        legalizar = Frame(self.frame2)
-        frame_legalizar = LabelFrame(legalizar, text="LEGALIZAR", font="sylfaen 16 bold")
+        frame_legalizar = LabelFrame(self, text="LEGALIZAR", font="sylfaen 16 bold")
 
         #TABELA COM OS VEICULOS QUE ESTÃO PRÓXIMOS A DATA DE LEGALIZAÇÃO
         self.tv_legalizar = ttk.Treeview(frame_legalizar, columns=('id', 'placa', 'data_de_aquisicao',
@@ -23,7 +29,7 @@ class Legalize(Frame):
         self.tv_legalizar.heading('dias_proxima_legalizacao', text='DIAS RESTANTES')
 
         #FRAME COM OS WIDGETS PARA ATUALIZAR O STATUS DA LEGALIZAÇÃO
-        frame_atualizar_status = LabelFrame(legalizar, text="Atualizar status", font="sylfaen 12 bold")
+        frame_atualizar_status = LabelFrame(self, text="Atualizar status", font="sylfaen 12 bold")
         self.label_id_legalizar = Label(frame_atualizar_status, text="ID do veiculo:", font="sylfaen 12")
         self.entry_id_legalizar = Entry(frame_atualizar_status)
         self.label_data_legalizar = Label(frame_atualizar_status, text="Data da legalização:", font="sylfaen 12")
@@ -48,7 +54,7 @@ class Legalize(Frame):
         self.mensagem_legalizacao.grid(row=3, column=0, columnspan=2)
         self.button_confirm_legalizar.grid(row=4, column=0, columnspan=2)
         frame_legalizar.grid(row=1)
-        legalizar.pack(expand=TRUE, fill=BOTH)
+        self.place(relx=0.251, rely=0.005, relheight=0.99, relwidth=0.745)
 
 
     def data_atual_legalizar(self,valor):
@@ -69,7 +75,7 @@ class Legalize(Frame):
         informacoes = [] #lista que vai receber as informações da tabela
         query_datas = ('SELECT id_veiculo, placa, data_de_aquisicao, ultima_legalizacao, proxima_legalizacao '
                         ' FROM automoveis ')
-        datas_proxima_legalizacao = self.db_consulta(query_datas)
+        datas_proxima_legalizacao = self.db.query(query_datas)
         for data in datas_proxima_legalizacao:
             #calculando quais itens estão com 10 dias de prioximidade da data de legalização
             data_proxima = datetime.strptime(data[4], "%d/%m/%Y")
@@ -92,7 +98,7 @@ class Legalize(Frame):
         #TESTAR SE O ID INFORMADO EXISTE NA BASE DE DADOS
         query_placa = "SELECT id_veiculo FROM automoveis WHERE id_veiculo = ?"
         parametro_placa = [id]
-        retorno = self.db_consulta(query_placa, parametro_placa)
+        retorno = self.db.query(query_placa, parametro_placa)
         if len(retorno) != 0:
             return True
         else:
@@ -124,6 +130,6 @@ class Legalize(Frame):
         query_update_legalizacao = ("UPDATE automoveis SET ultima_legalizacao = ?,"
                                     " proxima_legalizacao = ? WHERE id_veiculo = ?")
         parametros_update_legalizacao = ultima, proxima, id_veiculo
-        self.db_consulta(query_update_legalizacao, parametros_update_legalizacao)
+        self.db.query(query_update_legalizacao, parametros_update_legalizacao)
         self.mensagem_legalizacao['text'] = "Status atualizado com sucesso!"
         self.tabela_legalizar()

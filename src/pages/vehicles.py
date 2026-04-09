@@ -1,4 +1,4 @@
-from app.modules import *
+from src.modules import *
 
 class Veiculos(Frame):
     # ABA PARA MOSTRAR OS DADOS DOS VEICULOS, ALERTAR A QUANTIDADE DE VEICULOS DISPONIVEIS, INSERIR E PESQUISAR.

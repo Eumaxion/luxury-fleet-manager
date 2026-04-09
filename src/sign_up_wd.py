@@ -3,7 +3,7 @@ import tkinter
 from tkinter import ttk
 from tkinter import *
 import sqlite3
-from app.database import Database
+from src.database import Database
 
 '''###########################--JANELA CADASTRO--#################################'''
 
