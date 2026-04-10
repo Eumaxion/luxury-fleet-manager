@@ -1,17 +1,12 @@
-import os
-import tkinter
-from tkinter import ttk
-from tkinter import *
-import sqlite3
-from src.database import Database
+from src.modules import *
 
 '''###########################--JANELA CADASTRO--#################################'''
 
 class Sign_up:
-    def __init__(self, parent):
-        self.janela = parent
+    def __init__(self):
+        self.cadastrar()
     def cadastrar(self):
-        self.janela_cadastro = Toplevel(self.janela)
+        self.janela_cadastro = Toplevel()
         self.db = Database()
         self.janela_cadastro.title("CADASTRAR USUARIO")  # titulo
         icon2 = PhotoImage(file="assets/icons/icone2.png")
@@ -50,7 +45,7 @@ class Sign_up:
                                 self.insert_usuario.get(), self.insert_senha.get(), self.insert_nome.get()))
         self.janela_cadastro.grab_set()
         #self.janela_cadastro.focus_set()
-        self.janela_cadastro.transient(self.janela)
+        self.janela_cadastro.transient()
         self.insert_id.focus()
 
     def verificar_cadastro(self, id, usuario, senha, nome):

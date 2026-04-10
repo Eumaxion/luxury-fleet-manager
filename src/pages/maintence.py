@@ -1,10 +1,8 @@
 from src.modules import *
 
 class Maintence(Frame):
-    def __init__(self, root, app):
+    def __init__(self):
         super().__init__()
-        self.root = root
-        self.app = app
         self.db = Database()
         self.manutencao_page()
 

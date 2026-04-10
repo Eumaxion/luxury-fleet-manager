@@ -1,5 +1,5 @@
 
-# luxury-fleet-manager
+# luxury fleet manager
 
 ## Description
 
@@ -22,29 +22,28 @@ There’s a registration system, but you can test the program using the followin
 Username: ```admin```  
 Password: ```admin```  
 
-Veículos
+Vehicles
 
 Displays all registered vehicles in a table  
 Shows the number of available vehicles by type (Gold, Silver, Econômico)  
 Includes a search function and an option to add new vehicles  
 
-Legalizar
+Legalize
 
 Lists vehicles that need legalization  
 Allows you to “legalize” selected vehicles through a button  
 
-Manutenção
+Maintenance
 
 Shows vehicles that require maintenance  
 Option to send vehicles to maintenance directly from the interface  
 
-Sair
+Logout
 
-Two options: Quit or Go back to the start menu
+Two options: Quit or Logout (Go back to the login menu)
 
 ## Usage
 
-On Windows  
 Run the app using:  
 
 ```python3 app.py```
@@ -55,13 +54,14 @@ Python 3
 Tkinter – GUI interface  
 SQLite3 – Local database  
 OOP (Object-Oriented Programming) – Code structure and modularity  
-Makefile – Task automation (Linux)
+
 ## Lessons Learned
 
 Practical use of OOP principles in a complete project  
 Database integration and persistence with SQLite  
 GUI design and event handling with Tkinter  
 Code organization and modularization  
+
 ## Current Status
 
 Project finished and graded  

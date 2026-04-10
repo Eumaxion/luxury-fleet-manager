@@ -2,17 +2,14 @@ from src.modules import *
 
 class Veiculos(Frame):
     # ABA PARA MOSTRAR OS DADOS DOS VEICULOS, ALERTAR A QUANTIDADE DE VEICULOS DISPONIVEIS, INSERIR E PESQUISAR.
-    def __init__(self, root, app):
+    def __init__(self):
         super().__init__()
-        self.root = root
-        self.app = app
         self.db = Database()
         self.veiculos_page()
         
     def veiculos_page(self):
-        veiculos_frame = LabelFrame(self, text="FROTA", font="sylfaen 16 bold")
-
         #--- CRIANDO A TABELA DA ABA VEICULOS --- #
+        veiculos_frame = LabelFrame(self, text="FROTA", font="sylfaen 16 bold")
         self.tabela = ttk.Treeview(veiculos_frame, columns=('ID', 'placa', 'tipo', 'categoria', 'disponivel', 'disponivel em'), show='headings')
         self.tabela.column('ID', minwidth=0, width=40)
         self.tabela.column('placa', minwidth=0,width=70)

@@ -3,11 +3,12 @@ from src.modules import *
 '''###########################--JANELA LOGIN--#################################'''
 
 class Login:
-    def __init__(self, root, app):
+    def __init__(self, root, on_success):
         self.root = root
-        self.app = app
+        self.on_success = on_success
+        self.login()
     def login(self):
-        self.janela_login = Toplevel() # abrindo a tela de login em uma janela menor
+        self.janela_login = Toplevel(self.root) # abrindo a tela de login em uma janela menor
         self.db = Database()
         self.janela_login.title("LOGIN") #titulo
         icon3 = PhotoImage(file="assets/icons/icone2.png")
@@ -44,6 +45,6 @@ class Login:
 
         if len(resposta) != 0:
             self.janela_login.destroy()
-            self.app.mostrar_menu()
+            self.on_success()
         else:
             self.mensagem['text'] = 'Usuario ou senhas incorreto'''

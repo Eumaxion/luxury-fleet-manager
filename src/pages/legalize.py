@@ -2,10 +2,8 @@ from src.modules import *
 
 #ABA PARA MOSTRAR OS VEICULOS EM ALERTA DE LEGALIZAR
 class Legalize(Frame):
-    def __init__(self, root, app):
+    def __init__(self):
         super().__init__()
-        self.root = root
-        self.app = app
         self.db = Database()
         self.legalizar_page()
         

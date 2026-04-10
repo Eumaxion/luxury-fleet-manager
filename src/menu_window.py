@@ -5,35 +5,35 @@ from src.pages.vehicles import Veiculos
 from src.pages.maintence import Maintence
 
 '''################################################# CLASSE MENU ###################################################'''
-class Menu(Frame):
-    def __init__(self, root, app):
+class Menu_Frame(Frame):
+    def __init__(self):
         super().__init__()
-        self.root = root
-        self.app = app
-        self.frame_principal = Frame(self.root, highlightbackground='black', highlightthickness=2, bg="#AC4E0F")
+        self.menu_page()
+
+    def menu_page (self):
+        self.frame_principal = Frame(self.master, highlightbackground='black', highlightthickness=2, bg="#AC4E0F")
         self.frame_esquerdo = Frame(self.frame_principal, highlightbackground='black', highlightthickness=2, bg='#6AE298')
         #self.frame_direito = Frame(self.frame_principal, highlightbackground='black', highlightthickness=2, bg='#6AE298')
-        #self['bd'] = 2 #defininado o tamanho da borda
-        #self['relief'] = SOLID #definindo o tipo
+        self['bd'] = 2 #defininado o tamanho da borda
+        self['relief'] = SOLID #definindo o tipo
         # frame que vai estar os botões e os indicadores
         self.frame = Frame(self.frame_esquerdo, bg="#6AE298", highlightbackground='black', highlightthickness=2)
         # criando os botões para as abas e seus respectivos indicadores!
         b_veic_disp = Button(self.frame, text="VEICULOS", cursor='hand2', font="sylfaen 13 bold", bd=0, background="#6AE298",
-                             command=lambda: self.indicar(self.indicador_disponiveis, Veiculos(self.frame, self.root)))
-        self.indicador_disponiveis = Label(self.frame, text='', bg="#6AE298")
+                             command=lambda: self.indicar(self.indicador_disponiveis, Veiculos()))
+        self.indicador_disponiveis = Label(self.frame, text='', bg="#E26A6A")
         b_legalizar = Button(self.frame, text="LEGALIZAR", cursor='hand2', font="sylfaen 13 bold", bd=0, background="#6AE298",
-                             command=lambda: self.indicar(self.indicador_legalizar, Legalize(self.frame, self.root)))
+                             command=lambda: self.indicar(self.indicador_legalizar, Legalize()))
         self.indicador_legalizar = Label(self.frame, text='', bg="#6AE298")
         b_manutencao = Button(self.frame, text="MANUTENÇÃO", cursor='hand2', font="sylfaen 13 bold", bd=0, background="#6AE298",
-                              command=lambda: self.indicar(self.indicador_manutencao, Maintence(self.frame, self.root)))
+                              command=lambda: self.indicar(self.indicador_manutencao, Maintence()))
         self.indicador_manutencao = Label(self.frame, text='', bg="#6AE298")
         b_sair = Button(self.frame, text="SAIR", cursor='hand2', font="sylfaen 13 bold", bd=0, background="#6AE298",
-                        command=lambda: self.indicar(self.indicador_sair, (Exit_page(self.frame, self.root))))
-        self.indicador_sair = Label(self.frame, text='', bg="#E26A6A")
+                        command=lambda: self.indicar(self.indicador_sair, Exit_page()))
+        self.indicador_sair = Label(self.frame, text='', bg="#6AE298")
         # Posicionando os botões, indicadores e as frames
         self.frame_principal.place(relx=0, rely=0, relheight=1, relwidth=1)
         self.frame_esquerdo.place(relx=0, rely=0, relheight=1, relwidth=0.25)
-        #self.frame_direito.place(relx=1, rely=0, relheight=1, relwidth=0.25)
         self.frame.place(relx=0, rely=0, relheight=1, relwidth=1)
         b_veic_disp.place(x=50, y=100)  #
         self.indicador_disponiveis.place(x=10, y=90, width=10, height=60)
@@ -65,12 +65,12 @@ class Menu(Frame):
 
     def trocar_frame(self, novo_frame):
         if self.frame_atual is not None:
-            self.delet_page(self.frame_atual)# apaga tela atual
+            self.frame_atual.destroy()
         self.frame_atual = novo_frame
         self.frame_atual.place()
 
     def start_frame(self):
-        self.frame_atual = Veiculos(self.root, self.app)
+        self.frame_atual = Veiculos()
         self.frame_atual.place()
 
     def mostrar_menu(self):
